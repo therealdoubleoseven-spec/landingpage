@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyBrand — Home</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- Bootstrap Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ── Smooth scrolling ── */
+    html { scroll-behavior: smooth; }
+
+    /* ── Navbar ── */
+    .navbar {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(13, 110, 253, 0.92) !important;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.15);
+      transition: background 0.3s;
+    }
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
+    .nav-link {
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+      padding-bottom: 4px !important;
+    }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after { width: 70%; }
+
+    /* ── Section base ── */
+    section { padding: 5rem 1rem; }
+
+    /* ── Hero (Home section) ── */
+    #home {
+      min-height: 92vh;
+      background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
+      display: flex;
+      align-items: center;
+      color: #fff;
+    }
+    #home h1 {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    #home p.lead { color: rgba(255, 255, 255, 0.85); max-width: 520px; }
+
+    .btn-hero-primary {
+      background: #fff;
+      color: #0d6efd;
+      font-weight: 700;
+      border-radius: 50px;
+      padding: 0.7rem 2rem;
+      border: none;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-hero-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.28);
+      color: #0d6efd;
+    }
+    .btn-hero-outline {
+      border: 2px solid rgba(255,255,255,0.7);
+      color: #fff;
+      font-weight: 600;
+      border-radius: 50px;
+      padding: 0.65rem 1.8rem;
+      background: transparent;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-hero-outline:hover {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+
+    /* Floating illustration placeholder */
+    .hero-illustration {
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 1;
+      background: rgba(255,255,255,0.12);
+      border-radius: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7rem;
+      color: rgba(255,255,255,0.5);
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    /* Stats strip */
+    .stats-strip {
+      background: #fff;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      padding: 2rem 1rem;
+    }
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #0d6efd;
+    }
+
+    /* ── Apps section ── */
+    #apps { background: #f8f9fa; }
+    #apps h2 { font-weight: 800; }
+
+    .app-card {
+      border: none;
+      border-radius: 1.2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      overflow: hidden;
+    }
+    .app-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.13);
+    }
+    .app-card .card-icon {
+      font-size: 2.8rem;
+      width: 64px;
+      height: 64px;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .app-card .badge { font-size: 0.72rem; }
+
+    /* ── About section ── */
+    #about { background: #fff; }
+    #about h2 { font-weight: 800; }
+
+    .team-card {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      transition: transform 0.25s;
+    }
+    .team-card:hover { transform: translateY(-5px); }
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: linear-gradient(135deg, #0d6efd, #6610f2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #fff;
+      margin: 0 auto 1rem;
+    }
+
+    .timeline {
+      border-left: 3px solid #0d6efd;
+      padding-left: 1.5rem;
+    }
+    .timeline-item { position: relative; margin-bottom: 1.8rem; }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -1.85rem;
+      top: 0.35rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #0d6efd;
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px #0d6efd;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #212529;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.875rem;
+      padding: 2rem 1rem;
+    }
+    footer h6 { color: #fff; font-weight: 700; }
+    footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    footer a:hover { color: #fff; }
+    .footer-divider { border-color: rgba(255,255,255,0.1); }
+
+    /* ── Back-to-top ── */
+    #backToTop {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #0d6efd;
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 16px rgba(13,110,253,0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      z-index: 9999;
+      transition: opacity 0.3s;
+    }
+    #backToTop.show { display: flex; }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════
+       NAVBAR
+  ════════════════════════════════════════ -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top" id="mainNav">
+    <div class="container">
+      <!-- Brand -->
+      <a class="navbar-brand" href="#home">
+        <i class="bi bi-hexagon-fill me-2"></i>MyBrand
+      </a>
+
+      <!-- Hamburger toggle -->
+      <button
+        class="navbar-toggler border-0"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarMenu"
+        aria-controls="navbarMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Nav links -->
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#home">
+              <i class="bi bi-house-fill me-1"></i>Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#apps">
+              <i class="bi bi-grid-fill me-1"></i>Apps
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">
+              <i class="bi bi-info-circle-fill me-1"></i>About
+            </a>
+          </li>
+        </ul>
+        <a href="index.html" class="btn btn-outline-light btn-sm ms-lg-3 rounded-pill px-3">
+          <i class="bi bi-arrow-left me-1"></i>Landing Page
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ════════════════════════════════════════
+       HOME SECTION
+  ════════════════════════════════════════ -->
+  <section id="home">
+    <div class="container">
+      <div class="row align-items-center gy-5">
+
+        <!-- Text -->
+        <div class="col-12 col-lg-6">
+          <span class="badge bg-white bg-opacity-25 text-white mb-3 px-3 py-2 rounded-pill">
+            <i class="bi bi-lightning-charge-fill me-1"></i> Now Live
+          </span>
+          <h1 class="mb-4">
+            Your All-in-One<br />
+            <span style="color:#cfe2ff;">Digital Platform</span>
+          </h1>
+          <p class="lead mb-5">
+            Discover a suite of powerful apps, explore our story, and
+            unlock everything you need to build, grow, and succeed.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#apps" class="btn btn-hero-primary">
+              <i class="bi bi-grid-fill me-2"></i>Browse Apps
+            </a>
+            <a href="#about" class="btn btn-hero-outline">
+              Learn More <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Illustration -->
+        <div class="col-12 col-lg-6 text-center">
+          <div class="hero-illustration mx-auto">
+            <i class="bi bi-hexagon-fill"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats strip -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="row text-center gy-3">
+        <div class="col-6 col-md-3">
+          <div class="stat-number">50+</div>
+          <div class="text-muted small">Apps Available</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-number">120K</div>
+          <div class="text-muted small">Active Users</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-number">99.9%</div>
+          <div class="text-muted small">Uptime</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-number">4.9★</div>
+          <div class="text-muted small">Average Rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       APPS SECTION
+  ════════════════════════════════════════ -->
+  <section id="apps">
+    <div class="container">
+
+      <div class="text-center mb-5">
+        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-2">
+          <i class="bi bi-grid-fill me-1"></i> Our Apps
+        </span>
+        <h2 class="mb-2">Explore the Collection</h2>
+        <p class="text-muted">
+          Hand-picked tools built to make your everyday work effortless.
+        </p>
+      </div>
+
+      <!-- Filter tabs -->
+      <ul class="nav nav-pills justify-content-center mb-5 gap-2" id="appFilter">
+        <li class="nav-item">
+          <button class="nav-link active rounded-pill px-4" data-filter="all">All</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link rounded-pill px-4" data-filter="productivity">Productivity</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link rounded-pill px-4" data-filter="design">Design</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link rounded-pill px-4" data-filter="analytics">Analytics</button>
+        </li>
+      </ul>
+
+      <div class="row g-4" id="appGrid">
+
+        <!-- App 1 -->
+        <div class="col-12 col-sm-6 col-lg-4 app-item" data-category="productivity">
+          <div class="card app-card p-4 h-100">
+            <div class="app-card card-icon bg-primary bg-opacity-10">
+              <i class="bi bi-check2-square text-primary"></i>
+            </div>
+            <span class="badge bg-primary bg-opacity-10 text-primary mb-2" style="width:fit-content">Productivity</span>
+            <h5 class="fw-bold">TaskFlow</h5>
+            <p class="text-muted small mb-3">
+              Manage projects, assign tasks, and hit every deadline with
+              a clean Kanban-style board.
+            </p>
+            <a href="#" class="btn btn-outline-primary btn-sm rounded-pill mt-auto">
+              Open App <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- App 2 -->
+        <div class="col-12 col-sm-6 col-lg-4 app-item" data-category="design">
+          <div class="card app-card p-4 h-100">
+            <div class="app-card card-icon bg-danger bg-opacity-10">
+              <i class="bi bi-palette-fill text-danger"></i>
+            </div>
+            <span class="badge bg-danger bg-opacity-10 text-danger mb-2" style="width:fit-content">Design</span>
+            <h5 class="fw-bold">PixelCraft</h5>
+            <p class="text-muted small mb-3">
+              Create stunning visuals, logos, and social media graphics
+              with an intuitive drag-and-drop editor.
+            </p>
+            <a href="#" class="btn btn-outline-danger btn-sm rounded-pill mt-auto">
+              Open App <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- App 3 -->
+        <div class="col-12 col-sm-6 col-lg-4 app-item" data-category="analytics">
+          <div class="card app-card p-4 h-100">
+            <div class="app-card card-icon bg-success bg-opacity-10">
+              <i class="bi bi-bar-chart-fill text-success"></i>
+            </div>
+            <span class="badge bg-success bg-opacity-10 text-success mb-2" style="width:fit-content">Analytics</span>
+            <h5 class="fw-bold">DataLens</h5>
+            <p class="text-muted small mb-3">
+              Turn raw data into beautiful, actionable dashboards in
+              minutes — no coding required.
+            </p>
+            <a href="#" class="btn btn-outline-success btn-sm rounded-pill mt-auto">
+              Open App <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- App 4 -->
+        <div class="col-12 col-sm-6 col-lg-4 app-item" data-category="productivity">
+          <div class="card app-card p-4 h-100">
+            <div class="app-card card-icon bg-warning bg-opacity-10">
+              <i class="bi bi-chat-dots-fill text-warning"></i>
+            </div>
+            <span class="badge bg-warning bg-opacity-10 text-warning mb-2" style="width:fit-content">Productivity</span>
+            <h5 class="fw-bold">ChatSync</h5>
+            <p class="text-muted small mb-3">
+              Unified team messaging with threaded conversations,
+              file sharing, and smart notifications.
+            </p>
+            <a href="#" class="btn btn-outline-warning btn-sm rounded-pill mt-auto">
+              Open App <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- App 5 -->
+        <div class="col-12 col-sm-6 col-lg-4 app-item" data-category="design">
+          <div class="card app-card p-4 h-100">
+            <div class="app-card card-icon bg-info bg-opacity-10">
+              <i class="bi bi-vector-pen text-info"></i>
+            </div>
+            <span class="badge bg-info bg-opacity-10 text-info mb-2" style="width:fit-content">Design</span>
+            <h5 class="fw-bold">VectorStudio</h5>
+            <p class="text-muted small mb-3">
+              Professional vector illustration tool with layers,
+              gradients, and SVG export support.
+            </p>
+            <a href="#" class="btn btn-outline-info btn-sm rounded-pill mt-auto">
+              Open App <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- App 6 -->
+        <div class="col-12 col-sm-6 col-lg-4 app-item" data-category="analytics">
+          <div class="card app-card p-4 h-100">
+            <div class="app-card card-icon bg-purple bg-opacity-10" style="background:rgba(102,16,242,0.1)">
+              <i class="bi bi-graph-up-arrow" style="color:#6610f2"></i>
+            </div>
+            <span class="badge mb-2" style="background:rgba(102,16,242,0.1);color:#6610f2;width:fit-content">Analytics</span>
+            <h5 class="fw-bold">GrowthTrack</h5>
+            <p class="text-muted small mb-3">
+              Monitor KPIs, set growth targets, and receive AI-powered
+              recommendations to scale faster.
+            </p>
+            <a href="#" class="btn btn-sm rounded-pill mt-auto" style="border:1px solid #6610f2;color:#6610f2">
+              Open App <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /row -->
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       ABOUT SECTION
+  ════════════════════════════════════════ -->
+  <section id="about">
+    <div class="container">
+
+      <div class="text-center mb-5">
+        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-2">
+          <i class="bi bi-info-circle-fill me-1"></i> About Us
+        </span>
+        <h2 class="mb-2">Who We Are</h2>
+        <p class="text-muted">
+          A passionate team on a mission to make technology accessible to everyone.
+        </p>
+      </div>
+
+      <!-- Mission & Timeline -->
+      <div class="row gy-5 align-items-start mb-5">
+
+        <div class="col-12 col-lg-6">
+          <h4 class="fw-bold mb-3">Our Mission</h4>
+          <p class="text-muted">
+            We believe great software should be simple, beautiful, and
+            available to everyone — not just large enterprises. MyBrand
+            was founded to bridge that gap by building a platform where
+            individuals and teams can access world-class tools without
+            complexity or high cost.
+          </p>
+          <p class="text-muted">
+            From our first product launch to a community of over
+            <strong>120,000 active users</strong>, every decision we make
+            is guided by one principle: <em>people first</em>.
+          </p>
+
+          <div class="row g-3 mt-3">
+            <div class="col-6">
+              <div class="p-3 rounded-3 text-center" style="background:#f0f4ff">
+                <div class="fw-bold fs-4 text-primary">2019</div>
+                <div class="text-muted small">Founded</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="p-3 rounded-3 text-center" style="background:#f0f4ff">
+                <div class="fw-bold fs-4 text-primary">18</div>
+                <div class="text-muted small">Countries</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+          <h4 class="fw-bold mb-4">Our Journey</h4>
+          <div class="timeline">
+            <div class="timeline-item">
+              <h6 class="fw-bold mb-1">2019 — Founded</h6>
+              <p class="text-muted small mb-0">
+                MyBrand started as a two-person startup in a small co-working space.
+              </p>
+            </div>
+            <div class="timeline-item">
+              <h6 class="fw-bold mb-1">2020 — First Product Launch</h6>
+              <p class="text-muted small mb-0">
+                TaskFlow launched and reached 10,000 users within the first 3 months.
+              </p>
+            </div>
+            <div class="timeline-item">
+              <h6 class="fw-bold mb-1">2022 — Series A Funding</h6>
+              <p class="text-muted small mb-0">
+                Secured $8M in funding to expand the product suite and team.
+              </p>
+            </div>
+            <div class="timeline-item">
+              <h6 class="fw-bold mb-1">2024 — Platform Launch</h6>
+              <p class="text-muted small mb-0">
+                Launched the unified MyBrand platform with 6 integrated apps.
+              </p>
+            </div>
+            <div class="timeline-item">
+              <h6 class="fw-bold mb-1">2026 — 120K Users</h6>
+              <p class="text-muted small mb-0">
+                Crossed 120,000 active users across 18 countries worldwide.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /row -->
+
+      <!-- Team -->
+      <h4 class="fw-bold text-center mb-4">Meet the Team</h4>
+      <div class="row g-4 justify-content-center">
+
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="card team-card p-4 text-center h-100">
+            <div class="team-avatar mx-auto"><i class="bi bi-person-fill"></i></div>
+            <h6 class="fw-bold mb-0">Alex Rivera</h6>
+            <small class="text-muted">CEO &amp; Co-Founder</small>
+            <p class="text-muted small mt-2 mb-3">
+              Visionary leader with 12+ years in SaaS product strategy.
+            </p>
+            <div class="d-flex justify-content-center gap-2">
+              <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle p-1 lh-1">
+                <i class="bi bi-linkedin"></i>
+              </a>
+              <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle p-1 lh-1">
+                <i class="bi bi-twitter-x"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="card team-card p-4 text-center h-100">
+            <div class="team-avatar mx-auto"><i class="bi bi-person-fill"></i></div>
+            <h6 class="fw-bold mb-0">Jordan Lee</h6>
+            <small class="text-muted">CTO &amp; Co-Founder</small>
+            <p class="text-muted small mt-2 mb-3">
+              Full-stack engineer passionate about scalable architecture.
+            </p>
+            <div class="d-flex justify-content-center gap-2">
+              <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle p-1 lh-1">
+                <i class="bi bi-linkedin"></i>
+              </a>
+              <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle p-1 lh-1">
+                <i class="bi bi-github"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="card team-card p-4 text-center h-100">
+            <div class="team-avatar mx-auto"><i class="bi bi-person-fill"></i></div>
+            <h6 class="fw-bold mb-0">Sam Chen</h6>
+            <small class="text-muted">Head of Design</small>
+            <p class="text-muted small mt-2 mb-3">
+              Award-winning UX designer focused on human-centered interfaces.
+            </p>
+            <div class="d-flex justify-content-center gap-2">
+              <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle p-1 lh-1">
+                <i class="bi bi-linkedin"></i>
+              </a>
+              <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle p-1 lh-1">
+                <i class="bi bi-dribbble"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="card team-card p-4 text-center h-100">
+            <div class="team-avatar mx-auto"><i class="bi bi-person-fill"></i></div>
+            <h6 class="fw-bold mb-0">Morgan Patel</h6>
+            <small class="text-muted">Head of Growth</small>
+            <p class="text-muted small mt-2 mb-3">
+              Growth strategist who scaled three startups from 0 to 100K users.
+            </p>
+            <div class="d-flex justify-content-center gap-2">
+              <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle p-1 lh-1">
+                <i class="bi bi-linkedin"></i>
+              </a>
+              <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle p-1 lh-1">
+                <i class="bi bi-twitter-x"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /team row -->
+
+      <!-- CTA Banner -->
+      <div class="mt-5 p-5 rounded-4 text-center text-white"
+           style="background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);">
+        <h3 class="fw-bold mb-2">Ready to get started?</h3>
+        <p class="mb-4" style="color:rgba(255,255,255,0.85)">
+          Join over 120,000 users already building with MyBrand.
+        </p>
+        <a href="#apps" class="btn btn-light fw-bold rounded-pill px-4">
+          <i class="bi bi-grid-fill me-2"></i>Explore Apps
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="row gy-4 mb-4">
+
+        <div class="col-12 col-md-4">
+          <h6><i class="bi bi-hexagon-fill me-2 text-primary"></i>MyBrand</h6>
+          <p class="small" style="color:rgba(255,255,255,0.5)">
+            Building the future of digital tools — one app at a time.
+          </p>
+        </div>
+
+        <div class="col-6 col-md-2">
+          <h6>Navigate</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-1"><a href="#home">Home</a></li>
+            <li class="mb-1"><a href="#apps">Apps</a></li>
+            <li class="mb-1"><a href="#about">About</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-2">
+          <h6>Legal</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-1"><a href="#">Privacy Policy</a></li>
+            <li class="mb-1"><a href="#">Terms of Use</a></li>
+            <li class="mb-1"><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <h6>Stay in the loop</h6>
+          <div class="input-group input-group-sm">
+            <input type="email" class="form-control rounded-start-pill" placeholder="your@email.com" />
+            <button class="btn btn-primary rounded-end-pill px-3">Subscribe</button>
+          </div>
+        </div>
+
+      </div>
+
+      <hr class="footer-divider" />
+
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <span>&copy; 2026 MyBrand. All rights reserved.</span>
+        <div class="d-flex gap-3">
+          <a href="#"><i class="bi bi-twitter-x fs-5"></i></a>
+          <a href="#"><i class="bi bi-linkedin fs-5"></i></a>
+          <a href="#"><i class="bi bi-github fs-5"></i></a>
+          <a href="#"><i class="bi bi-instagram fs-5"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back-to-top button -->
+  <button id="backToTop" title="Back to top">
+    <i class="bi bi-chevron-up"></i>
+  </button>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ── Active nav-link on scroll ──
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-link[href^='#']");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            navLinks.forEach((link) => {
+              link.classList.toggle(
+                "active",
+                link.getAttribute("href") === "#" + entry.target.id
+              );
+            });
+          }
+        });
+      },
+      { threshold: 0.45 }
+    );
+    sections.forEach((s) => observer.observe(s));
+
+    // ── App filter ──
+    document.querySelectorAll("#appFilter button").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll("#appFilter button").forEach((b) =>
+          b.classList.remove("active")
+        );
+        this.classList.add("active");
+
+        const filter = this.dataset.filter;
+        document.querySelectorAll(".app-item").forEach((item) => {
+          item.style.display =
+            filter === "all" || item.dataset.category === filter ? "" : "none";
+        });
+      });
+    });
+
+    // ── Back-to-top ──
+    const btt = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+      btt.classList.toggle("show", window.scrollY > 400);
+    });
+    btt.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  </script>
+
+</body>
+</html>
